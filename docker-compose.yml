@@ -1,0 +1,14 @@
+version: '3'
+services:
+  tech-review:
+    image: node:alpine
+    container_name: tech-review
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm start"
