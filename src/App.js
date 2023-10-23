@@ -1,11 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
-function MyButton() {
+
+function TodoList() {
+  const [inputValue, setInputValue] = useState('');
+
+  function handleInputChange(e) {
+    setInputValue(e.target.value);
+  }
+
+  function handleClick() {
+    const div = document.createElement('div');
+    div.textContent = inputValue;
+    div.addEventListener('dblclick', handleDivDoubleClick); // Add event listener
+    document.getElementById('container').appendChild(div);
+  }
+
+  function handleDivDoubleClick(e) {
+    if (e.target.style.textDecoration === 'line-through') {
+      e.target.style.textDecoration = 'none';
+    } else {
+      e.target.style.textDecoration = 'line-through';
+    }
+  }
+
   return (
-      <button>
-        I'm a button
-      </button>
+
+    <div>
+      <h1>Que souhaitez vous absolument faire ?</h1>
+      <input type="text" value={inputValue} onChange={handleInputChange} />
+      <button onClick={handleClick}>Ajouter</button>
+      <div id="container"></div>
+    </div>
   );
 }
 
@@ -13,22 +40,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <MyButton />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <TodoList/>
       </header>
     </div>
   );
 }
+
 
 export default App;
